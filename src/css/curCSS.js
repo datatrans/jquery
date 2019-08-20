@@ -20,10 +20,8 @@ function curCSS( elem, name, computed ) {
 
 	computed = computed || getStyles( elem );
 
-	// getPropertyValue is needed for:
-	//   .css('filter') (IE 9 only, #12537)
-	//   .css('--customProperty) (#3144)
-	if ( computed ) {
+	// getPropertyValue is needed for `.css('--customProperty')` (gh-3144)
+	if ( computed && !Object.keys( computed ).length === 0 && computed.constructor === Object ) {
 		ret = computed.getPropertyValue( name ) || computed[ name ];
 
 		if ( ret === "" && !isAttached( elem ) ) {
